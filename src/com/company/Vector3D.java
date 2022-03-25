@@ -1,5 +1,7 @@
 package com.company;
 
+import java.util.Random;
+
 public class Vector3D {
     private double x, y, z;
     private static final String INFO = "Это вектор для трехмерной системы координат.";
@@ -10,6 +12,39 @@ public class Vector3D {
         this.z = z;
     }
 
+    public Vector3D() {
+        this.x = 0;
+        this.y = 0;
+        this.z = 0;
+    }
+
+    public double getLength() { // определение длины  вектора
+        double result = Math.sqrt((x * x) + (y * y) + (z * z));
+        return result;
+    }
+
+    public double getScalar(Vector3D vector3D) { // // скалярное * двух векторов
+        return x * vector3D.getX() + y * vector3D.getY() + z * vector3D.getZ();
+    }
+
+    public Vector3D getSum(Vector3D vector3D) { // сложение двух векторов
+        return new Vector3D(x + vector3D.getX(), y + vector3D.getY(), z + vector3D.getZ());
+    }
+
+    public Vector3D getDif(Vector3D vector3D) { // разность двух векторов
+        return new Vector3D(x + vector3D.getX(), y + vector3D.getY(), z + vector3D.getZ());
+    }
+
+    public int compare(Vector3D vector3D) {
+        return (int) (this.getLength() - vector3D.getLength());
+    }
+
+
+    public java.lang.String toString() {
+        return INFO + ": Vector3D (" +
+                x + "," + y + "," + z +')';
+
+    }
     public double getX() {
         return x;
     }
@@ -34,37 +69,12 @@ public class Vector3D {
         this.z = z;
     }
 
-    public double getLength() { // определение длины  вектора
-        double result = Math.sqrt((x * x) + (y * y) + (z * z));
-        return result;
-    }
-
-    public double getScalar(Vector3D e, Vector3D f) { // // скалярное * двух векторов
-        double result = e.getX() * e.getX() * e.getZ() + f.getY() * f.getY() * f.getZ();
-        return result;
-    }
-
-    public void getSum(Vector3D e, Vector3D f) { // сложение двух векторов
-        Vector3D g = new Vector3D(e.getX() + f.getX(), e.getY() + f.getY(), e.getZ() + f.getZ()); // создание new вектора
-        g.printInfo();
-    }
-
-    public void getDif(Vector3D e, Vector3D f) { // разность двух векторов
-        Vector3D h = new Vector3D(e.getX() - f.getX(), e.getY() - f.getY(), e.getZ() - f.getZ()); // создание new вектора
-        h.printInfo();
-    }
-
-    public void compare(Vector3D e, Vector3D f) {
-        if (e.getLength() == f.getLength()) { // сравнение векторов
-            System.out.println("Вектор e = f");
-        } else if (e.getLength() > f.getLength()) {
-            System.out.println("Вектор e > f");
-        } else {
-            System.out.println("Вектор e < f");
+    public static Vector3D[] returnsVectors(int n) {
+        Random random = new Random();
+        Vector3D[] vectorN = new Vector3D[n];
+        for (int i = 0; i < n; i++) {
+            vectorN[i] = new Vector3D(random.nextInt(), random.nextInt(), random.nextInt());
         }
-    }
-
-    public void printInfo() {
-        System.out.println(INFO + " Его координаты " + "(" + getX() + " , " + getY() + " , " + getZ() + ")");
+        return vectorN;
     }
 }
